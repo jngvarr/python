@@ -12,4 +12,3 @@ if quarter not in quarters:
     print("Введено неверное значение четверти")
 else:
     print(quarters[quarter])
-1
