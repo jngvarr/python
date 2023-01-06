@@ -3,14 +3,9 @@
 # - для k = 8 список будет выглядеть так: [-21 ,13, -8, 5, −3, 2, −1, 1, 0, 1, 1, 2, 3, 5, 8, 13, 21]
 
 
-def nega_fib(n):
-    fibo_list = [0]
-    x, y = 0, 1
-    for i in range(n):
-        x, y = y, x+y
-        fibo_list.append(x)
-        fibo_list.insert(0, -x if i % 2 else x)
-    return fibo_list
-
-num = int(input("Введите число: "))
-print(nega_fib(num))
+fibo = [1, 0, 1]
+for i in range(int(input('Введите предел последовательности'))):
+    fibo.insert(0,fibo[1]-fibo[0])
+    print(fibo)
+    fibo.append(fibo[-2]+fibo[-1])
+    print(fibo)

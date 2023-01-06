@@ -21,7 +21,8 @@ str_to_find = 'qwe'
 # else:
 #     print(-1)
 
-if my_list.count(str_to_find)>1:
-    my_index=my_list.index(str_to_find)
+if my_list.count(str_to_find) > 1:
+    my_index = my_list.index(str_to_find)
     print(my_list[my_index+1:].index(str_to_find))
-else: print(-1)
+else:
+    print(-1)
