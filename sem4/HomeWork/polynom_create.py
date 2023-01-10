@@ -14,7 +14,7 @@ def random_dict_create(polynomials_degree):
 def polynom_create(base_dictionary):
     poly_dict = dict(reversed(base_dictionary.items()))
   
-    print(poly_dict)
+    # print(poly_dict)
     # проверка на наличие нулевого коэффициента и его удаление
     # создание копии полинома для итерации и удаления элемента т.к. удаление из итерируемого объекта вызывает ошибку
     poly_dict_copy = poly_dict.copy() 
@@ -25,7 +25,7 @@ def polynom_create(base_dictionary):
             del (poly_dict[values])
     # print(degree_dict)
     poly = " ".join([str(v)+'*'+"X^"+str(k)+" +" for k,v in poly_dict.items()])
-    print(poly)
+    # print(poly)
     poly = poly.replace('*X^0 +', ' = 0')
     poly = poly.replace('X^1', 'X')
     return poly
