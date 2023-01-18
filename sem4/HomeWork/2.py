@@ -4,7 +4,7 @@ def simple_multiply(nums):
     simple_nums_list = [1]
     i = 2
     while i * i <= nums:
-        if nums % i == 0:
+        if not nums % i:
             simple_nums_list.append(i)
             nums /= i
         else:

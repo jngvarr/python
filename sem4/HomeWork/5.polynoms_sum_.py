@@ -18,12 +18,11 @@ def str_to_dictionary(path):
     data.close()             #
     poly = poly.replace(' ', '')        #
     poly = poly.replace('*X^', ':')     # преобразование
-    poly = poly.replace('*X', ':1')                                    # многочлена вида 37*X^5 + 43*X^4 + 24*X^3 + 2*X^2 + 93*X + 83 = 0
+    poly = poly.replace('*X', ':1')     # многочлена вида 37*X^5 + 43*X^4 + 24*X^3 + 2*X^2 + 93*X + 83 = 0
     poly = poly.replace('=0', ':0')     # в вид           37:5+43:4+24:3+2:2+93:1+83:0
-         # преобразование строки 37:5+43:4+24:3+2:2+93:1+83:0
+                                        # преобразование строки 37:5+43:4+24:3+2:2+93:1+83:0
     # print(poly)
-    poly_dict = dict((int(v), int(k)) for v, k in (e.split(':') for e in poly.split(
-        '+')))    # в словарь {37: '5', 43: '4', 24: '3', 2: '2', 93: '1', 83: '0'}
+    poly_dict = dict((int(v), int(k)) for v, k in (e.split(':') for e in poly.split('+')))    # в словарь {37: '5', 43: '4', 24: '3', 2: '2', 93: '1', 83: '0'}
     # print(poly_dict)
     # перемена местами ключей и значений словаря {'5': 37, '4': 43, '3': 24, '2': 2, '1': 93, '0': 83}
     poly_dict = {v: k for k, v in poly_dict.items()}
