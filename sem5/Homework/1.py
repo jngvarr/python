@@ -12,3 +12,11 @@
 # Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных.
 
 # Входные и выходные данные хранятся в отдельных текстовых файлах.
+
+def decode(s):
+    # return "".join((map(lambda tup:  tup[0] * int(tup[1]), zip(s[0:len(s):2], s[1:len(s):2]))))
+    # print(s[0:len(s):2])
+    # print(s[1:len(s):2])
+    # print(list(zip(s[0:len(s):2], s[1:len(s):2])))
+    print(list(zip(s,s.count)))
+decode("eeryyyyuBbn")

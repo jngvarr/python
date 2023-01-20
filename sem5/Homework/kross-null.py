@@ -12,6 +12,7 @@ win_lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
              [0, 4, 8], [2, 4, 6]]
 
 def print_pole():
+    # os.system('cls')
     for i in range(9):
         print(f'{pole[i]}\t', end="")
         if not (i+1) % 3:
