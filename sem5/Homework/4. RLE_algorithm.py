@@ -21,12 +21,12 @@ def main():
     path = os.path.dirname(os.path.abspath(__file__))
     print(f'путь к файлу: {path}')
 
-    with open(path + '\sourse_file.txt', 'r') as data:
+    with open(path + '\sourse_file.txt', 'r', encoding='UTF-8') as data:
         sourse_string = data.read()
         print(sourse_string)
         encoding_string = compress(sourse_string)
         print(encoding_string)
-    with open(path + '\\result_file.txt', 'w') as result:
+    with open(path + '\\result_file.txt', 'w', encoding='UTF-8') as result:
         result.write(encoding_string)
 
 if __name__ == '__main__':        

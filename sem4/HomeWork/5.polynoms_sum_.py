@@ -21,11 +21,7 @@ def str_to_dictionary(path):
     poly = poly.replace('=0', ':0')     # в вид           37:5+43:4+24:3+2:2+93:1+83:0
                                         # преобразование строки 37:5+43:4+24:3+2:2+93:1+83:0
     # print(poly)
-<<<<<<< HEAD:sem4/HomeWork/5.polynoms_sum_.py
-    poly_dict = dict((int(v), int(k)) for v, k in (e.split(':') for e in poly.split('+')))    # в словарь {37: '5', 43: '4', 24: '3', 2: '2', 93: '1', 83: '0'}
-=======
     poly_dict = dict((int(v), int(k)) for v, k in (e.split(':') for e in poly.split('+'))) # в словарь {37: '5', 43: '4', 24: '3', 2: '2', 93: '1', 83: '0'}
->>>>>>> e31e6837784194772fbe88ff4ea1759b5462810f:sem4/HomeWork/5.polynoms_sum.py
     # print(poly_dict)
     # перемена местами ключей и значений словаря {'5': 37, '4': 43, '3': 24, '2': 2, '1': 93, '0': 83}
     poly_dict = {v: k for k, v in poly_dict.items()}

@@ -1,8 +1,10 @@
 # В файле находится N натуральных чисел, записанных через пробел.
 # Среди чисел не хватает одного, чтобы выполнялось условие A[i] - 1 = A[i-1]. Найдите это число.
 
+import os
+
 # string = str(input().split())
-path = r'C:\Users\Jngvarr\gb\python\sem5\new_file.txt'
+path = os.path.dirname(os.path.abspath(__file__))+ 'new_file.txt'
 string = ('1 2 \n3 4 5 \n6 8 9 \n10')
 print(string)
 with open(path, 'w') as data:

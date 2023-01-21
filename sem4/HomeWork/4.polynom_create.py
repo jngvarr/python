@@ -21,7 +21,7 @@ def polynom_create(base_dictionary):
         if poly_dict_copy[values] == 0:
             del (poly_dict[values])
     # print(degree_dict)
-    poly = " ".join([str(v)+'*'+"X^"+str(k)+" +" for k,v in poly_dict.items()])
+    poly = " ".join([str(v)+'*X^'+str(k)+" +" for k,v in poly_dict.items()])
     poly = poly.replace('*X^0 +', ' = 0')
     poly = poly.replace('X^1', 'X')
     return poly

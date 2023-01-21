@@ -24,38 +24,41 @@ def step_(step, symbol):
 
 
 def game_status():
-    win = ""
+    winner = ""
  
     for elem in win_lines:
         if pole[elem[0]] == "X" and pole[elem[1]] == "X" and pole[elem[2]] == "X":
-            win = "X"
+            winner = "X"
         if pole[elem[0]] == "O" and pole[elem[1]] == "O" and pole[elem[2]] == "O":
-            win = "O"   
-    return win
+            winner = "O"   
+    return winner
 
-game_over = False
-player1 = True
- 
-while game_over == False:
+def main():
+    game_over = False
+    player1 = True
     
-#  печать игрового поля
+    while game_over == False:
+        
+        print_pole()#  печать игрового поля
+    
+        if player1 == True:
+            symbol = "X"
+            step = int(input("Игрок №1, выберети позицию: "))
+        else:
+            symbol = "O"
+            step = int(input("Игрок №2, выберети позицию: "))
+    
+        step_(step,symbol) # делаем ход 
+        winner = game_status() # проверим победителя
+        if winner != "":
+            game_over = True
+        else:
+            game_over = False
+    
+        player1 = not(player1)        
+    
+    print("Победил", winner) 
     print_pole()
- 
-    if player1 == True:
-        symbol = "X"
-        step = int(input("Игрок №1, выберети позицию: "))
-    else:
-        symbol = "O"
-        step = int(input("Игрок №2, выберети позицию: "))
- 
-    step_(step,symbol) # делаем ход в указанную ячейку
-    win = game_status() # определим победителя
-    if win != "":
-        game_over = True
-    else:
-        game_over = False
- 
-    player1 = not(player1)        
- 
-print("Победил", win) 
-print_pole()
+
+if __name__ == '__main__':        
+    main()
