@@ -7,5 +7,3 @@ if num1**2 == num2 or num2**2 == num1:
     print('Да')
 else:
     print('Нет')
-
-import this
