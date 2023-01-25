@@ -1,6 +1,10 @@
 from user_interface import temperature_view
 from user_interface import wind_speed_view
 from user_interface import pressure_view
+import os
+
+
+path = os.path.dirname(os.path.abspath(__file__))
 
 
 def create(device=1):
@@ -13,7 +17,7 @@ def create(device=1):
         .format(pressure_view(device))
     xml += '</xml>'
 
-    with open('data.xml', 'w') as page:
+    with open(path+'\data.xml', 'w') as page:
         page.write(xml)
 
     return xml
@@ -31,7 +35,7 @@ def new_create(data, device = 1):
         .format(p)
     xml += '</xml>'
 
-    with open('new_data.xml', 'w') as page:
+    with open(path + '\new_data.xml', 'a') as page:
         page.write(xml)
 
     return data

@@ -1,8 +1,12 @@
 from user_interface import temperature_view
 from user_interface import wind_speed_view
 from user_interface import pressure_view
+import os
+
+path = os.path.dirname(os.path.abspath(__file__))
 
 def create(device = 1):
+    # path = os.path.dirname(os.path.abspath(__file__))
     style = 'style="font-size:30px;"'
     html = '<html>\n  <head></head>\n  <body>\n'
     html += '    <p {}>Temperature: {} c</p>\n'\
@@ -13,7 +17,7 @@ def create(device = 1):
         .format(style, pressure_view(device))
     html += '  </body>\n</html>'
     
-    with open('index.html', 'w') as page:
+    with open(path+'\index.html', 'w') as page:
         page.write(html)
 
     return html
@@ -21,6 +25,7 @@ def create(device = 1):
 
 
 def new_create(data ,device = 1):
+    # path = os.path.dirname(os.path.abspath(__file__))
     t, p, w = data
     style = 'style="font-size:30px;"'
     html = '<html>\n  <head></head>\n  <body>\n'
@@ -32,7 +37,7 @@ def new_create(data ,device = 1):
         .format(style, p)
     html += '  </body>\n</html>'
     
-    with open('new_index.html', 'w') as page:
+    with open(path + '\new_index.html', 'a') as page:
         page.write(html)
 
     return data

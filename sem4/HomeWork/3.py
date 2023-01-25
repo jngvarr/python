@@ -17,6 +17,7 @@ def uniq_elements(list_):
     for elem in list_:
         if list_.count(elem) == 1:
             new_list.append(elem)
+    print(list(set(list_))) # множество set() не содержит дубликаты элементов
     return (new_list)
 
 # def uniq_elements(list_):
