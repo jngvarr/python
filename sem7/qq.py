@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@jngvarr 
-ElenaAgapitova
-/
-HomeWork_Python
-Public
-Fork your own copy of ElenaAgapitova/HomeWork_Python
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-HomeWork_Python/HomeWork/hw7_phone_new/model.py /
-@ElenaAgapitova
-ElenaAgapitova hw_8 added
-Latest commit 5a4fe18 18 hours ago
- History
- 1 contributor
-133 lines (115 sloc)  4.54 KB
-
 """Модуль-модель: предоставление данных"""
 contacts_list: list = []
 state: bool = False
@@ -160,17 +131,3 @@ def found_contacts(find_choice: tuple) -> list:
         case 5:
             new_found: list = find()
             return new_found
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About

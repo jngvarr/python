@@ -1,23 +1,21 @@
 import imp
-
-
 import data_provider as prov
 import logger as log
 
-def temperature_view(senson):
-    data = prov.get_temperature(senson)
+def temperature_view(sensor):
+    data = prov.get_temperature(sensor)
     log.temperature_logger(data)
     return data
 
 
-def pressure_view(senson):
-    data = prov.get_preassure(senson)
+def pressure_view(sensor):
+    data = prov.get_preassure(sensor)
     log.pressure_logger(data)
     return data
 
     
-def wind_speed_view(senson):
-    data = prov.get_wind_speed(senson)
+def wind_speed_view(sensor):
+    data = prov.get_wind_speed(sensor)
     log.wind_speed_logger(data)
     return data
 
