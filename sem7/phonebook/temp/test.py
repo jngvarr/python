@@ -9,11 +9,13 @@
 # contact=dict(contact)
 # print(contact)
 # # for e in contact:
-# #     print(e)
-contact=[]
-contact.append(input("Имя: "))
-contact.append(input("Введите фамилию: "))
-contact.append(input("Введите номер телефона: "))
-contact.append(input("Введите описание: "))
-# contact=list(enumerate(contact))
-print(contact)
+# # #     print(e)
+# contact=[]
+# contact.append(input("Имя: "))
+# contact.append(input("Введите фамилию: "))
+# contact.append(input("Введите номер телефона: "))
+# contact.append(input("Введите описание: "))
+# # contact=list(enumerate(contact))
+# print(contact)
+nt(a) #- разбивает нашу строку на элементы, по умолчанию там где пробелы ['sdf', 'sdfs','sdf']
+print(dict(a)) #- разбивает нашу строку на элементы, по умолчанию там где пробелы ['sdf', 'sdfs','sdf']

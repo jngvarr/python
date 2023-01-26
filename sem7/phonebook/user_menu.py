@@ -4,7 +4,7 @@ import thanks as th
 import os
 os.system("cls")
 
-def user_menu():
+def um():
 
     menu_items = {1: "Вывести на экран книгу контактов", 2: "Добавить новый контакт",3: "Закончить работу программы"}   
 

@@ -5,4 +5,4 @@ def find_cont():
     with open(os.path.dirname(os.path.abspath(__file__))+'\db.csv', 'r',encoding = 'utf-8') as db:
         for line in db:
             print(line,end='')
-    um.user_menu()
+    um.um()
