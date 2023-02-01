@@ -10,16 +10,16 @@ def user_menu():
                   4: "Вывести список всех учеников школы", 
                   5: "Закончить работу"}   
 
-    choice = int(input(f'\nВыберете действие: \n\n'+''.join(str(k)+ ". "
+    choice = int(input(f'\n\nВыберете действие: \n\n'+''.join(str(k)+ ". "
      + str(v) + ' - нажмите ' + str(k) +"." + '\n' for k, v in menu_items.items())+" -> "))
     while choice not in menu_items.keys():
         choice = int(input("Такой пункт в меню осутствует. Выберите пункт из списка: "))
     if choice == 1:
         model.create_student_data()
     if choice == 2:
-        model.delete_student()
+        model.delete_student("delete")
     if choice == 3:
-        model.student_transfer()
+        model.student_transfer("transfer")
     if choice == 4:
         model.student_list()
        

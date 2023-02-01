@@ -1,6 +1,6 @@
 import os
 import view
-# import shutil
+import menu
 
 student_id_counter = 0
 students = {}
@@ -14,9 +14,9 @@ def get_student_class():
 def add_new_student():
     new_student = dict()
     new_student['id'] = get_new_ID()
-    new_student['first_name'] = view.get_new_student_info('students_first_name')
-    new_student['last_name'] = view.get_new_student_info('students_last_name')
-    new_student['birthday'] = view.get_new_student_info('students_bithday')
+    new_student['first_name'] = view.get_new_student_info('students_first_name: ')
+    new_student['last_name'] = view.get_new_student_info('students_last_name: ')
+    new_student['birthday'] = view.get_new_student_info('students_bithday: ')
     add_student_to_class(new_student['id'])
     return new_student
 
@@ -34,15 +34,12 @@ def save_student_to_file(students):
 
 
 def add_student_to_class(student_id):
-    print("'это из add st to class", classes)
-    student_class = view.get_new_student_info('student_class')
+    student_class = view.get_new_student_info('student class to add: ')
     if student_class in classes:
         classes[student_class].append(student_id)
-        print('есть в классе')
     else:
         classes[student_class] = [student_id]
-        print('нет в классе', student_class)
-
+    print(f'student with ID "{student_id}" added to "{student_class}" class')
 
 def get_last_student_id():
     global student_id_counter
@@ -71,86 +68,57 @@ def get_classes():
                     ] = elem[elem.index('[')+1:-2].split(", ")    
     classes = {key: list(map(int, value)) for key, value in classes.items()}
 
-
-def delete_student():
-    class_student_to_delete = view.get_new_student_info("Input student class: ")
+def print_data(class_student_to_remove):
+    with open(os.path.dirname(os.path.abspath(__file__)) + '\classes.txt', 'r', encoding='utf-8') as file:
+        for line in file:
+            if line[:line.index("-")] == class_student_to_remove:
+                class_list = line[line.index('[')+1:line.index(']')].split(', ')
     with open(os.path.dirname(os.path.abspath(__file__))+'\students.csv', 'r', encoding='utf-8') as file:
         for line in file:
             if line[:line.index(';')] == "ID":
                 print(line[:line.index(';bir')].replace(';', '\t'))
-            if line[:line.index(';')] == class_student_to_delete:
-                print(line[:line.index(';')], class_student_to_delete)
+            if line[:line.index(';')] in class_list:
                 print(line[:line.rfind(';')].replace(';', '\t'))
-    student_id_to_del = int(input("Enter the student id to delete: "))
+
+def delete_student(action):
+    class_student_to_remove = view.get_new_student_info(f'students class to {action} the student: ')
+    global id_to_del
+    print_data(class_student_to_remove)
+    id_to_del = int(input("Enter the students id to remove: "))
+    remove_student_from_class(class_student_to_remove, action)
+
+def remove_student_from_class(class_student_to_remove, action):         
     global classes
     get_classes()
     classes = {key: list(map(int, value)) for key, value in classes.items()}
-    id_to_del = int(input("Enter the student id to delete: "))
     for elem in classes.values():
-        if id_to_del in classes[class_student_to_delete]:
-            classes[class_student_to_delete].remove(id_to_del) 
-    save_classes()  
+        if id_to_del in classes[class_student_to_remove]:
+            classes[class_student_to_remove].remove(id_to_del) 
+    print(f'Student with ID "{id_to_del}" {action}ed from "{class_student_to_remove}" class.')
+    save_classes()
+    # menu.user_menu()
 
-# def delete_student():
-#     class_student_to_delete = view.get_new_student_info("Input student class: ")
-#     with open(os.path.dirname(os.path.abspath(__file__)) + '\classes.txt', 'r', encoding='utf-8') as file:
-#         for line in file:
-#             if line[:line.index("-")] == class_student_to_delete:
-#                 class_list = line[line.index('[')+1:line.index(']')].split(', ')
-#     with open(os.path.dirname(os.path.abspath(__file__))+'\students.csv', 'r', encoding='utf-8') as file:
-#         for line in file:
-#             if line[:line.index(';')] == "ID":
-#                 print(line[:line.index(';bir')].replace(';', '\t'))
-#             if line[:line.index(';')] in class_list:
-#                 print(line[:line.rfind(';')].replace(';', '\t'))
-#     student_id_to_del = int(input("Enter the student id to delete: "))
-#     with open(os.path.dirname(os.path.abspath(__file__)) + '\classes.txt', 'r', encoding='utf-8') as file:
-#         for line in file:
-#             if line[:line.index("-")] == class_student_to_delete:
-#                 temp = list(map(int, line[line.index(
-#                     '[')+1:-2].replace(' ', '').split(',')))
-#                 del temp[temp.index(student_id_to_del)]
-#                 temp_class = str()
-#                 temp_class = class_student_to_delete+"-"+ str(temp)
-#     file.close            
-#     renew_classes(class_student_to_delete, temp_class)
-
-
-# def renew_classes(old_class, new_class):
-#     path = os.path.dirname(os.path.abspath(__file__))
-#     with open(path + '\classes.txt', 'r', encoding ='utf-8') as f1, \
-#          open(path + '\classes1.txt', 'w', encoding ='utf-8') as f2:
-#          lines = f1.readlines()
-#          for line in lines:
-#             line = line.strip()
-#             if line[:line.index("-")] == old_class:
-#                 f2.write(new_class+"\n")
-#             else:
-#                 f2.write(line+"\n")
-
-#     # shutil.move(path + '\classes1.txt', path + '\classes.txt')            
-#     os.remove(path + '\classes.txt')
-#     os.rename(path + '\classes1.txt', path + '\classes.txt')
-
-
-
-def student_transfer():
-    pass
-
-
+def student_transfer(action):
+    delete_student(action+" off")
+    add_student_to_class(id_to_del)
+    save_classes()
+    menu.user_menu() 
+    
 def student_list():
-    pass
-
+    with open(os.path.dirname(os.path.abspath(__file__))+'\students.csv', 'r', encoding='utf-8') as file:
+        for line in file:
+            print(line.replace(';', '\t'), end="")
+    menu.user_menu()
+   
 
 def create_student_data():
     get_last_student_id()
     get_classes()
-    # classes=get_classes()
-    # print(classes)
     stop = False
     while not stop:
         save_student_to_file(add_new_student())
-        if view.get_new_student_info('"q" to stop').lower() == 'q':
+        if view.get_new_student_info('"q" to stop: ').lower() == 'q':
             stop = True
     save_classes()
     save_last_student_id()
+    menu.user_menu()
