@@ -7,4 +7,5 @@ def add_new_contact():
     contact.append(input("Введите номер телефона: "))
     contact.append(input("Введите описание: ")) 
 
-    fill.fill_bd(contact)
+    fill.fill_csv_bd(contact)
+    fill.fill_txt_bd(contact)
