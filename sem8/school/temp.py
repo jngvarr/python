@@ -1,24 +1,27 @@
 import os
-os.system("cls")
+os.system('cls')
 
-old_class = '1а'
-new_class = '1а-[1, 6]'
+classes = {}
 
-def renew_classes(old_class, new_class):
+def get_classes():
+    with open(os.path.dirname(os.path.abspath(__file__)) + '\classes1.txt', 'r', encoding='utf-8') as file:
+        temp = file.readlines()  # 1a-[1, 2, 3]
+        global classes
+        for elem in temp:
+            classes[elem[:elem.index('-')]
+                    ] = elem[elem.index('[')+1:-2].split(", ")
 
-    path = os.path.dirname(os.path.abspath(__file__))
-    with open(path + '\classes.txt', 'r', encoding ='utf-8') as f1, \
-         open(path + '\classes1.txt', 'w', encoding ='utf-8') as f2:
-         lines = f1.readlines()
-         print(lines)
-         for line in lines:
-            line = line.strip()
-            if line[:line.index("-")] == old_class:
-                print(old_class)
-                print(new_class)
-                print(line[:line.index("-")])
-                f2.write(new_class+"\n")
-            else:
-                f2.write(line+"\n")
+class_student_to_delete = "1а"
+get_classes()
+print(classes)
+classes = {key: list(map(int, value)) for key, value in classes.items()}
+print(classes)
+id_to_del = int(input("Enter the student id to delete: "))
 
-renew_classes(old_class, new_class)
+for elem in classes.values():
+    print(elem)
+    if id_to_del in classes[class_student_to_delete]:
+        print(classes[class_student_to_delete])
+        print("работает")
+        classes[class_student_to_delete].remove(id_to_del)
+print(classes)
