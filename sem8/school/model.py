@@ -68,24 +68,29 @@ def get_classes():
         global classes
         for elem in temp:
             classes[elem[:elem.index('-')]
-                    ] = elem[elem.index('[')+1:-2].split(", ")
-    
-    
+                    ] = elem[elem.index('[')+1:-2].split(", ")    
     classes = {key: list(map(int, value)) for key, value in classes.items()}
-    print('это из get classes', classes)
-    # return classes
 
 
 def delete_student():
     class_student_to_delete = view.get_new_student_info("Input student class: ")
+    with open(os.path.dirname(os.path.abspath(__file__))+'\students.csv', 'r', encoding='utf-8') as file:
+        for line in file:
+            if line[:line.index(';')] == "ID":
+                print(line[:line.index(';bir')].replace(';', '\t'))
+            if line[:line.index(';')] == class_student_to_delete:
+                print(line[:line.index(';')], class_student_to_delete)
+                print(line[:line.rfind(';')].replace(';', '\t'))
+    student_id_to_del = int(input("Enter the student id to delete: "))
     global classes
-    print(classes)
+    get_classes()
     classes = {key: list(map(int, value)) for key, value in classes.items()}
     id_to_del = int(input("Enter the student id to delete: "))
     for elem in classes.values():
         if id_to_del in classes[class_student_to_delete]:
-            classes[class_student_to_delete].remove(id_to_del)
-    print(classes)       
+            classes[class_student_to_delete].remove(id_to_del) 
+    save_classes()  
+
 # def delete_student():
 #     class_student_to_delete = view.get_new_student_info("Input student class: ")
 #     with open(os.path.dirname(os.path.abspath(__file__)) + '\classes.txt', 'r', encoding='utf-8') as file:
@@ -111,21 +116,21 @@ def delete_student():
 #     renew_classes(class_student_to_delete, temp_class)
 
 
-def renew_classes(old_class, new_class):
-    path = os.path.dirname(os.path.abspath(__file__))
-    with open(path + '\classes.txt', 'r', encoding ='utf-8') as f1, \
-         open(path + '\classes1.txt', 'w', encoding ='utf-8') as f2:
-         lines = f1.readlines()
-         for line in lines:
-            line = line.strip()
-            if line[:line.index("-")] == old_class:
-                f2.write(new_class+"\n")
-            else:
-                f2.write(line+"\n")
+# def renew_classes(old_class, new_class):
+#     path = os.path.dirname(os.path.abspath(__file__))
+#     with open(path + '\classes.txt', 'r', encoding ='utf-8') as f1, \
+#          open(path + '\classes1.txt', 'w', encoding ='utf-8') as f2:
+#          lines = f1.readlines()
+#          for line in lines:
+#             line = line.strip()
+#             if line[:line.index("-")] == old_class:
+#                 f2.write(new_class+"\n")
+#             else:
+#                 f2.write(line+"\n")
 
-    # shutil.move(path + '\classes1.txt', path + '\classes.txt')            
-    os.remove(path + '\classes.txt')
-    os.rename(path + '\classes1.txt', path + '\classes.txt')
+#     # shutil.move(path + '\classes1.txt', path + '\classes.txt')            
+#     os.remove(path + '\classes.txt')
+#     os.rename(path + '\classes1.txt', path + '\classes.txt')
 
 
 
