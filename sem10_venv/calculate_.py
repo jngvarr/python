@@ -7,6 +7,6 @@ def calc(my_list):
             result = num1-num2
         case "*":
             result = num1*num2
-        case "":
+        case "/":
             result = num1/num2
     return result
