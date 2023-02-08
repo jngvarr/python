@@ -1,54 +1,71 @@
-from telegram.ext import MessageHandler, filters, CommandHandler, ApplicationBuilder
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardMarkup
+import logging
 
-def start(bot, update):
-    update.message.reply_text('Привет! Я информационный бот компании "Путешествия и туризм".\n'
-                              'Для получения информации можете воспользоваться подсказками ниже!',
-                              reply_markup=markup)
-    
-def close_keyboard(bot, update):
-    update.message.reply_text('Ok', reply_markup=ReplyKeyboardRemove())    
+from telegram import __version__ as TG_VER
 
-def echo(bot, update):
-    if update.message.text[-1] == '?':
-        update.message.reply_text('Конечно можно спросить! Только я культурно промолчу...')
-    else:
-        update.message.reply_text('Вполне возможно, кто ж знает?')
-    
-def address(bot, update):
-    update.message.reply_text('Адрес: Китай, Гималаи, хребет Махалангур-Химал, вершина Эверест, д. 1')
+try:
+    from telegram import __version_info__
+except ImportError:
+    __version_info__ = (0, 0, 0, 0, 0)  # type: ignore[assignment]
 
-def phone(bot, update):
-    update.message.reply_text('Телефон: +86 133 2686 8519')
+if __version_info__ < (20, 0, 0, "alpha", 1):
+    raise RuntimeError(
+        f"This example is not compatible with your current PTB version {TG_VER}. To view the "
+        f"{TG_VER} version of this example, "
+        f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
+    )
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
-def site(bot, update):
-    update.message.reply_text('Сайт: https://yandex.ru/everest/')
-
-def work_time(bot, update):
-    update.message.reply_text('Время работы: пн-пт, 9-00 - 19-00')
+# Enable logging
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 
-app = ApplicationBuilder().token('6168262957:AAE4E5CdM9R8OaQaC7c0Tfa7U892uGb92is').build()
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Sends a message with three inline buttons attached."""
+    keyboard = [
+        [
+            InlineKeyboardButton("Option 1", callback_data="help"),
+            InlineKeyboardButton("Option 2", callback_data="prompt"),
+        ],
+        [InlineKeyboardButton("Option 3", callback_data="3")],
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text("Please choose:", reply_markup=reply_markup)
 
 
-reply_keyboard = [['/address', '/phone'],
-                  ['/site', '/work_time']]
+async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Parses the CallbackQuery and updates the message text."""
+    query = update.callback_query
 
-markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
+    # CallbackQueries need to be answered, even if no notification to the user is needed
+    # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
+    await query.answer()
+    print(query.data)
+    await query.edit_message_text(text=f"/{query.data}")
 
-app.add_handler(CommandHandler('start', start))
 
-app.add_handler(CommandHandler('close', close_keyboard))
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Displays info on how to use the bot."""
+    await update.message.reply_text("Use /start to test this bot.")
 
-app.add_handler(CommandHandler('address', address))
-app.add_handler(CommandHandler('phone', phone))
-app.add_handler(CommandHandler('site', site))
-app.add_handler(CommandHandler('work_time', work_time))
 
-text_handler = MessageHandler(filters.TEXT, echo)
-app.add_handler(text_handler)
+def main() -> None:
+    """Run the bot."""
+    # Create the Application and pass it your bot's token.
+    application = Application.builder().token("6168262957:AAE4E5CdM9R8OaQaC7c0Tfa7U892uGb92is").build()
 
-print("another bot start")
-app.run_polling()
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CallbackQueryHandler(button))
+    application.add_handler(CommandHandler("help", help_command))
 
-app.idle()
+    # Run the bot until the user presses Ctrl-C
+    application.run_polling()
+
+
+if __name__ == "__main__":
+    main()
