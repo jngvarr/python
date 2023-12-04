@@ -14,12 +14,13 @@ data_in = b""
 def recieving():
     global data_in
     while True:
-        data_chank = ya_sock.recv(1024)
-        data_in = data_in + data_chank 
+        data_chunk = ya_sock.recv(1024)
         # 1024 - размер буфера
+        data_in = data_in + data_chunk 
 
-rec_thread = threading.Thread(target = recieving())
+rec_thread = threading.Thread(target = recieving)
 rec_thread.start()
 
 sleep(4)
 print(data_in)
+ya_sock.close()
